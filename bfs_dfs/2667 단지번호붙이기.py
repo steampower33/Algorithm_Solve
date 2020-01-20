@@ -1,0 +1,63 @@
+# 큐.
+from collections import deque
+
+# bfs.
+# 무한루프 안에 q안의 내용이 존재할때까지 돌게하고.
+# 현재 위치와 4방향 위치의 값이 1인지 확인해서 같은 단지인지 확인한다.
+# 만약 연결되어있다면, 그 위치의 값을 num으로 바꾼다.
+def bfs(location, map, num):
+    q = location # y, x
+    map_ = map
+    dx = [0, 1, 0, -1]
+    dy = [1, 0, -1, 0]
+    map_[q[0][0]][q[0][1]] = num
+    while(1):
+        # while q 가 끝나도 q.second를 통해서, 다시 시작할수있다.
+        q_second = deque()
+        while q:
+            y_, x_ = q.popleft()
+            for i in range(4):
+                # 다음 위치 설정.
+                nextX = x_ + dx[i]
+                nextY = y_ + dy[i]
+                # 다음 위치의 조건.
+                if 0 <= nextX < n and 0 <= nextY < n and map_[nextY][nextX] == 1:
+                    map_[nextY][nextX] = num
+                    q_second.append((nextY,nextX))
+        q = q_second
+        # q비었으면 break.
+        if not q: break
+    return map_
+
+if __name__ == "__main__":
+    # 지도의 크기.
+    n = int(input())
+
+    # 지도
+    map = [[int(i) for i in input()] for j in range(n)]
+
+    # 단지 설정.
+    num = 1
+    # map을 돌면서 1이 나오면 그위치에서 바로 bfs를 실행한다.
+    for i in range(n):
+        for j in range(n):
+            if map[i][j] == 1:
+                location = deque()
+                location.append((i,j)) # y, x
+                num += 1
+                map = bfs(location, map, num)
+                location.clear()
+
+    # 단지의 아파트 수.
+    count = [0] * (num - 1)
+    # map을 돌면 단지의 이름이 0, 1이 아니면 count 배열에 1씩더함.
+    for i in range(n):
+        for j in range(n):
+            if map[i][j] != 0 and map[i][j] != 1:
+                count[map[i][j]-2] += 1
+
+    # count를 정렬해주고, 출력.
+    count.sort()
+    print(len(count))
+    for i in count:
+        print(i)
