@@ -29,8 +29,7 @@ def dfs(graph, start):
         node = stack.pop()
         if node not in visit:
             visit.append(node)
-            for _ in graph[node]:
-                stack.extend(reversed(graph[node]))
+            stack.extend(reversed(graph[node]))
     return visit
 
 # bfs
