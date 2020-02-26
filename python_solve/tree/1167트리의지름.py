@@ -1,3 +1,4 @@
+
 lines = int(input())
 
 graph = dict()
