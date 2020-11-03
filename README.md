@@ -1,2 +1,2 @@
-# Argorithm_Solve
+# Algorithm_Solve
  
