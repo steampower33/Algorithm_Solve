@@ -1,0 +1,40 @@
+# 힙 사용 및 INF 설정.
+from heapq import heappush, heappop
+INF = 987654321
+
+# 다익스트라.
+# 처음 시작하는 위치에서는 가중치가 없으니 0으로 설정.
+# 그 뒤 heap인 q에다가 [0, 시작위치]를 넣어준다.
+# q가 빌때까지 돈다.
+# heap에서 하나를 꺼내고, 그 위치에서 갈수있는 간선들을 확인한다.
+# cost에 갈수있는 간선의 c값 이랑 더하고, 그 결과 값이랑 dist[갈수있는 간선위치]랑 비교해서 더 작다면
+# 그 값을 dist[위치]에 넣고 heap에 결과 값이랑 위치값을 넣는다.
+def dijkstra(v, s, g):
+    dist = [INF] * v
+    dist[s - 1] = 0
+    q = []
+    heappush(q, [0, s - 1])
+
+    while q:
+        cost, pos = heappop(q)
+
+        for p, c in g[pos]:
+            c += cost
+            if c < dist[p]:
+                dist[p] = c
+                heappush(q, [c, p])
+        print(q)
+    return dist
+
+# 입/출력
+if __name__ == "__main__":
+    V, E = map(int, input().split())
+    K = int(input())
+    graph = [[] for _ in range(V)]
+    for _ in range(E):
+        u, v, w = map(int, input().split())
+        graph[u-1].append([v-1, w])
+
+    print(graph)
+    for d in dijkstra(V, K, graph):
+        print(d if d != INF else "INF")

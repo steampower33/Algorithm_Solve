@@ -5,9 +5,7 @@ def selectionSort(nums):
             if nums[i] < nums[j]:
                 continue
             else:
-                temp = nums[i]
-                nums[i] = nums[j]
-                nums[j] = temp
+                nums[i], nums[j] = nums[j], nums[i]
 
     print(nums[0], nums[len(nums)-1])
 
