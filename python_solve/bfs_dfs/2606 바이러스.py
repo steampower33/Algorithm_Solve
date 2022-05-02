@@ -17,11 +17,13 @@ def bfs(graph, start):
         if node not in visit:
             visit.append(node)
             queue.extend(graph[node])
+
     return visit
 
 if __name__ == "__main__":
     # 컴퓨터 수.
     computers = int(input())
+
     # 쌍 수.
     pair = int(input())
 
@@ -41,11 +43,5 @@ if __name__ == "__main__":
     # 바이러스 걸린 컴퓨터 수 넣을 곳.
     birus = list()
 
-    # 시작위치를 1 ~ 컴퓨터 수 만큼 돌아서 birus에 길이를 넣는다.
-    for i in range(1, computers+1):
-        result = bfs(graph, i)
-        birus.append(len(result)-1)
-
-    # 그 중 최대 값을 출력한다.
-    print(max(birus))
+    print(len(bfs(graph, 1))-1)
 

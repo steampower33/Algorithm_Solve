@@ -18,4 +18,4 @@ def solution(N, stages):
 
     return [_[0] for _ in a]
 
-print(solution(3, [1,1,1]))
+print(solution(5, [2, 1, 2, 6, 2, 4, 3, 3]))
